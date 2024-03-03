@@ -19,9 +19,9 @@ export const HeroParallax = ({
     thumbnail: string;
   }[];
 }) => {
-  const firstRow = products.slice(0, 5);
-  const secondRow = products.slice(5, 8);
-  const thirdRow = products.slice(8, 12);
+  const firstRow = products.slice(0, 4);
+  const secondRow = products.slice(4, 7);
+  const thirdRow = products.slice(7, 9);
   const fourthRow = products.slice(12, 16);
   const ref = React.useRef(null);
   const { scrollYProgress } = useScroll({
@@ -32,19 +32,19 @@ export const HeroParallax = ({
   const springConfig = { stiffness: 200, damping: 40, bounce: 100 };
 
   const translateX = useSpring(
-    useTransform(scrollYProgress, [0, 1], [0, 700]),
+    useTransform(scrollYProgress, [0, 0.5], [-100, 600]),
     springConfig
   );
   const translateXReverse = useSpring(
-    useTransform(scrollYProgress, [0, 1], [0, -700]),
+    useTransform(scrollYProgress, [0, 1], [100, -600]),
     springConfig
   );
   const rotateX = useSpring(
-    useTransform(scrollYProgress, [0, 0.2], [15, 10]),
+    useTransform(scrollYProgress, [0, 0.3], [15, 0]),
     springConfig
   );
   const opacity = useSpring(
-    useTransform(scrollYProgress, [0, 0.2], [0.1, 1]),
+    useTransform(scrollYProgress, [0, 0.2], [0.25, 1]),
     springConfig
   );
   const rotateZ = useSpring(
@@ -106,7 +106,7 @@ export const HeroParallax = ({
             />
           ))}
         </motion.div>
-        <motion.div className="flex flex-row-reverse space-x-reverse space-x-20">
+        <motion.div className="flex flex-row-reverse space-x-reverse space-x-10">
           {thirdRow.map((product) => (
             <ProductCard
               product={product}
@@ -115,7 +115,7 @@ export const HeroParallax = ({
             />
           ))}
         </motion.div>
-        <motion.div className="flex flex-row  mb-20 space-x-20 ">
+        <motion.div className="flex flex-row  mb-10 space-x-10 ">
           {fourthRow.map((product) => (
             <ProductCard
               product={product}
@@ -135,8 +135,8 @@ export const Header = () => {
       <h1 className="text-2xl md:text-7xl font-bold dark:text-white">
         Rumi Allbert <br /> Blog & Stuff
       </h1>
-      <p className="max-w-2xl text-base md:text-xl mt-8 dark:text-neutral-200">
-        Philosophy and other things 🤠
+      <p className="max-w-2xl text-base md:text-xl mt-3 dark:text-neutral-200">
+        Under Construction 🔨
       </p>
     </div>
   );

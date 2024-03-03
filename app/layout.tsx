@@ -1,15 +1,9 @@
 import { ThemeProvider } from "@/components/theme-provider";
 import { ModeToggle } from "@/components/ui/mode-toggle"; // Import the ModeToggle component
-import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
 
 const inter = Inter({ subsets: ["latin"] });
-
-export const metadata: Metadata = {
-  title: "Rumi Blog",
-  description: "Just another blog.",
-};
 
 export default function RootLayout({
   children,
@@ -24,7 +18,22 @@ export default function RootLayout({
           defaultTheme="dark"
           disableTransitionOnChange
         >
-          {/* Assuming you want the toggle accessible site-wide at a fixed position */}
+          {/* Home button */}
+          {/* <div
+            style={{
+              position: "fixed",
+              top: "1rem",
+              left: "1rem",
+              zIndex: 1000,
+            }}
+          >
+            <Link href="/">
+              <button className="px-4 py-2 text-white bg-blue-500 rounded hover:bg-blue-700 transition-colors duration-200">
+                Home
+              </button>
+            </Link>
+          </div> */}
+          {/* Mode toggle */}
           <div
             style={{
               position: "fixed",

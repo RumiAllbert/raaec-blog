@@ -19,8 +19,8 @@ export const HeroParallax = ({
     thumbnail: string;
   }[];
 }) => {
-  const firstRow = products.slice(0, 4);
-  const secondRow = products.slice(4, 8);
+  const firstRow = products.slice(0, 5);
+  const secondRow = products.slice(5, 8);
   const thirdRow = products.slice(8, 12);
   const fourthRow = products.slice(12, 16);
   const ref = React.useRef(null);
@@ -29,18 +29,18 @@ export const HeroParallax = ({
     offset: ["start start", "end start"],
   });
 
-  const springConfig = { stiffness: 300, damping: 30, bounce: 100 };
+  const springConfig = { stiffness: 200, damping: 40, bounce: 100 };
 
   const translateX = useSpring(
-    useTransform(scrollYProgress, [0, 1], [0, 1000]),
+    useTransform(scrollYProgress, [0, 1], [0, 700]),
     springConfig
   );
   const translateXReverse = useSpring(
-    useTransform(scrollYProgress, [0, 1], [0, -1000]),
+    useTransform(scrollYProgress, [0, 1], [0, -700]),
     springConfig
   );
   const rotateX = useSpring(
-    useTransform(scrollYProgress, [0, 0.2], [15, 15]),
+    useTransform(scrollYProgress, [0, 0.2], [15, 10]),
     springConfig
   );
   const opacity = useSpring(
@@ -52,7 +52,7 @@ export const HeroParallax = ({
     springConfig
   );
   const translateY = useSpring(
-    useTransform(scrollYProgress, [0, 0.2], [-700, 500]),
+    useTransform(scrollYProgress, [0, 0.1], [-700, 500]),
     springConfig
   );
   // Define the starting and ending Y positions for the stacking animation
@@ -71,11 +71,12 @@ export const HeroParallax = ({
     scrollYProgress,
     [startStackingScrollProgress, endStackingScrollProgress],
     [0, 400]
-  ); // Example values
+  );
+
   return (
     <div
       ref={ref}
-      className="h-[300vh] py-40 overflow-hidden  antialiased relative flex flex-col self-auto [perspective:1000px] [transform-style:preserve-3d]"
+      className="h-[200vh] py-40 overflow-hidden  antialiased relative flex flex-col self-auto [perspective:1000px] [transform-style:preserve-3d]"
     >
       <Header />
       <motion.div
@@ -87,12 +88,7 @@ export const HeroParallax = ({
         }}
         className=""
       >
-        <motion.div
-          className="flex flex-row-reverse space-x-reverse space-x-20 mb-20"
-          style={{
-            translateY: firstRowTranslateY,
-          }}
-        >
+        <motion.div className="flex flex-row-reverse space-x-reverse space-x-20 mb-20">
           {firstRow.map((product) => (
             <ProductCard
               product={product}
@@ -101,12 +97,7 @@ export const HeroParallax = ({
             />
           ))}
         </motion.div>
-        <motion.div
-          className="flex flex-row  mb-20 space-x-20 "
-          style={{
-            translateY: secondRowTranslateY,
-          }}
-        >
+        <motion.div className="flex flex-row  mb-20 space-x-20 ">
           {secondRow.map((product) => (
             <ProductCard
               product={product}
@@ -115,12 +106,7 @@ export const HeroParallax = ({
             />
           ))}
         </motion.div>
-        <motion.div
-          className="flex flex-row-reverse space-x-reverse space-x-20"
-          style={{
-            translateY: firstRowTranslateY,
-          }}
-        >
+        <motion.div className="flex flex-row-reverse space-x-reverse space-x-20">
           {thirdRow.map((product) => (
             <ProductCard
               product={product}
@@ -129,12 +115,7 @@ export const HeroParallax = ({
             />
           ))}
         </motion.div>
-        <motion.div
-          className="flex flex-row  mb-20 space-x-20 "
-          style={{
-            translateY: firstRowTranslateY,
-          }}
-        >
+        <motion.div className="flex flex-row  mb-20 space-x-20 ">
           {fourthRow.map((product) => (
             <ProductCard
               product={product}

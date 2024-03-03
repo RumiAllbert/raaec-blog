@@ -19,9 +19,10 @@ export const HeroParallax = ({
     thumbnail: string;
   }[];
 }) => {
-  const firstRow = products.slice(0, 5);
-  const secondRow = products.slice(5, 10);
-  const thirdRow = products.slice(10, 15);
+  const firstRow = products.slice(0, 4);
+  const secondRow = products.slice(4, 8);
+  const thirdRow = products.slice(8, 12);
+  const fourthRow = products.slice(12, 16);
   const ref = React.useRef(null);
   const { scrollYProgress } = useScroll({
     target: ref,
@@ -39,21 +40,38 @@ export const HeroParallax = ({
     springConfig
   );
   const rotateX = useSpring(
-    useTransform(scrollYProgress, [0, 0.2], [15, 0]),
+    useTransform(scrollYProgress, [0, 0.2], [15, 15]),
     springConfig
   );
   const opacity = useSpring(
-    useTransform(scrollYProgress, [0, 0.2], [0.2, 1]),
+    useTransform(scrollYProgress, [0, 0.2], [0.1, 1]),
     springConfig
   );
   const rotateZ = useSpring(
-    useTransform(scrollYProgress, [0, 0.2], [20, 0]),
+    useTransform(scrollYProgress, [0, 0.3], [30, 0]),
     springConfig
   );
   const translateY = useSpring(
     useTransform(scrollYProgress, [0, 0.2], [-700, 500]),
     springConfig
   );
+  // Define the starting and ending Y positions for the stacking animation
+  // Adjust these values based on your layout and desired effect
+  const startStackingScrollProgress = 0.8; // Example start scroll progress to begin stacking
+  const endStackingScrollProgress = 1; // End at the bottom of the scroll
+
+  // Calculate translateY values for each row to stack them as the user scrolls
+  // Adjust the output range values based on your specific layout needs
+  const firstRowTranslateY = useTransform(
+    scrollYProgress,
+    [startStackingScrollProgress, endStackingScrollProgress],
+    [0, 200]
+  ); // Example values
+  const secondRowTranslateY = useTransform(
+    scrollYProgress,
+    [startStackingScrollProgress, endStackingScrollProgress],
+    [0, 400]
+  ); // Example values
   return (
     <div
       ref={ref}
@@ -69,7 +87,12 @@ export const HeroParallax = ({
         }}
         className=""
       >
-        <motion.div className="flex flex-row-reverse space-x-reverse space-x-20 mb-20">
+        <motion.div
+          className="flex flex-row-reverse space-x-reverse space-x-20 mb-20"
+          style={{
+            translateY: firstRowTranslateY,
+          }}
+        >
           {firstRow.map((product) => (
             <ProductCard
               product={product}
@@ -78,7 +101,12 @@ export const HeroParallax = ({
             />
           ))}
         </motion.div>
-        <motion.div className="flex flex-row  mb-20 space-x-20 ">
+        <motion.div
+          className="flex flex-row  mb-20 space-x-20 "
+          style={{
+            translateY: secondRowTranslateY,
+          }}
+        >
           {secondRow.map((product) => (
             <ProductCard
               product={product}
@@ -87,11 +115,30 @@ export const HeroParallax = ({
             />
           ))}
         </motion.div>
-        <motion.div className="flex flex-row-reverse space-x-reverse space-x-20">
+        <motion.div
+          className="flex flex-row-reverse space-x-reverse space-x-20"
+          style={{
+            translateY: firstRowTranslateY,
+          }}
+        >
           {thirdRow.map((product) => (
             <ProductCard
               product={product}
               translate={translateX}
+              key={product.title}
+            />
+          ))}
+        </motion.div>
+        <motion.div
+          className="flex flex-row  mb-20 space-x-20 "
+          style={{
+            translateY: firstRowTranslateY,
+          }}
+        >
+          {fourthRow.map((product) => (
+            <ProductCard
+              product={product}
+              translate={translateXReverse}
               key={product.title}
             />
           ))}
@@ -105,10 +152,10 @@ export const Header = () => {
   return (
     <div className="max-w-7xl relative mx-auto py-20 md:py-40 px-4 w-full  left-0 top-0">
       <h1 className="text-2xl md:text-7xl font-bold dark:text-white">
-        Rumi Allbert <br /> Blog studio
+        Rumi Allbert <br /> Blog & Stuff
       </h1>
       <p className="max-w-2xl text-base md:text-xl mt-8 dark:text-neutral-200">
-        Some of the papers I have written regarding philsophy and other things 🤠
+        Philosophy and other things 🤠
       </p>
     </div>
   );
@@ -156,159 +203,75 @@ export const ProductCard = ({
   );
 };
 
+// Pages
 
 export const products = [
   {
     title: "In Search of Platos Guardian",
-    link: "https://gomoonbeam.com",
-    thumbnail:
-      "/images/plato.png",
+    link: "",
+    thumbnail: "/images/plato.png",
   },
   {
-    title: "Cursor",
-    link: "https://cursor.so",
-    thumbnail:
-      "https://aceternity.com/images/products/thumbnails/new/cursor.png",
+    title: "Echoes of Ancient Wisdom",
+    link: "",
+    thumbnail: "/images/echoesofvirtue.png",
   },
   {
-    title: "Rogue",
-    link: "https://userogue.com",
-    thumbnail:
-      "https://aceternity.com/images/products/thumbnails/new/rogue.png",
+    title: "Psychadelic Revelation",
+    link: "",
+    thumbnail: "/images/psychadelicrevelation.png",
   },
 
   {
-    title: "Editorially",
-    link: "https://editorially.org",
-    thumbnail:
-      "https://aceternity.com/images/products/thumbnails/new/editorially.png",
+    title: "From Purgatory to Principle",
+    link: "",
+    thumbnail: "/images/lovetoprinciple.png",
   },
   {
-    title: "Editrix AI",
-    link: "https://editrix.ai",
-    thumbnail:
-      "https://aceternity.com/images/products/thumbnails/new/editrix.png",
+    title: "Reason and Revelation",
+    link: "",
+    thumbnail: "/images/reasonandrevelation.png",
   },
   {
-    title: "Pixel Perfect",
-    link: "https://app.pixelperfect.quest",
-    thumbnail:
-      "https://aceternity.com/images/products/thumbnails/new/pixelperfect.png",
+    title: "Lust’s Lure",
+    link: "",
+    thumbnail: "/images/lustlure.png",
   },
 
   {
-    title: "Algochurn",
-    link: "https://algochurn.com",
-    thumbnail:
-      "https://aceternity.com/images/products/thumbnails/new/algochurn.png",
+    title: "Beyond Words",
+    link: "",
+    thumbnail: "/images/beyondwords.png",
   },
-  {
-    title: "Aceternity UI",
-    link: "https://ui.aceternity.com",
-    thumbnail:
-      "https://aceternity.com/images/products/thumbnails/new/aceternityui.png",
-  },
-  {
-    title: "Tailwind Master Kit",
-    link: "https://tailwindmasterkit.com",
-    thumbnail:
-      "https://aceternity.com/images/products/thumbnails/new/tailwindmasterkit.png",
-  },
-  {
-    title: "SmartBridge",
-    link: "https://smartbridgetech.com",
-    thumbnail:
-      "https://aceternity.com/images/products/thumbnails/new/smartbridge.png",
-  },
-  {
-    title: "Renderwork Studio",
-    link: "https://renderwork.studio",
-    thumbnail:
-      "https://aceternity.com/images/products/thumbnails/new/renderwork.png",
-  },
+  // {
+  //   title: "Aceternity UI",
+  //   link: "",
+  //   thumbnail: "",
+  // },
+  // {
+  //   title: "Tailwind Master Kit",
+  //   link: "",
+  //   thumbnail: "",
+  // },
+  // {
+  //   title: "SmartBridge",
+  //   link: "",
+  //   thumbnail: "",
+  // },
+  // {
+  //   title: "Renderwork Studio",
+  //   link: "",
+  //   thumbnail: "",
+  // },
 
-  {
-    title: "Creme Digital",
-    link: "https://cremedigital.com",
-    thumbnail:
-      "https://aceternity.com/images/products/thumbnails/new/cremedigital.png",
-  },
-  {
-    title: "Golden Bells Academy",
-    link: "https://goldenbellsacademy.com",
-    thumbnail:
-      "https://aceternity.com/images/products/thumbnails/new/goldenbellsacademy.png",
-  },
-  {
-    title: "Invoker Labs",
-    link: "https://invoker.lol",
-    thumbnail:
-      "https://aceternity.com/images/products/thumbnails/new/invoker.png",
-  },
-  {
-    title: "Invoker Labs",
-    link: "https://invoker.lol",
-    thumbnail:
-      "https://aceternity.com/images/products/thumbnails/new/invoker.png",
-  },
-  {
-    title: "d Labs",
-    link: "https://invoker.lol",
-    thumbnail:
-      "https://aceternity.com/images/products/thumbnails/new/invoker.png",
-  },
-  {
-    title: "a Labs",
-    link: "https://invoker.lol",
-    thumbnail:
-      "https://aceternity.com/images/products/thumbnails/new/invoker.png",
-  },
-  {
-    title: "fd Labs",
-    link: "https://invoker.lol",
-    thumbnail:
-      "https://aceternity.com/images/products/thumbnails/new/invoker.png",
-  },
-  {
-    title: "E Free Invoice",
-    link: "https://efreeinvoice.com",
-    thumbnail:
-      "https://aceternity.com/images/products/thumbnails/new/efreeinvoice.png",
-  },
-  {
-    title: "E Free Invoice",
-    link: "https://efreeinvoice.com",
-    thumbnail:
-      "https://aceternity.com/images/products/thumbnails/new/efreeinvoice.png",
-  },
-  {
-    title: "E Free Invoice",
-    link: "https://efreeinvoice.com",
-    thumbnail:
-      "https://aceternity.com/images/products/thumbnails/new/efreeinvoice.png",
-  },
-  {
-    title: "E Free Invoice",
-    link: "https://efreeinvoice.com",
-    thumbnail:
-      "https://aceternity.com/images/products/thumbnails/new/efreeinvoice.png",
-  },
-  {
-    title: "E Free Invoice",
-    link: "https://efreeinvoice.com",
-    thumbnail:
-      "https://aceternity.com/images/products/thumbnails/new/efreeinvoice.png",
-  },
-  {
-    title: "E Free Invoice",
-    link: "https://efreeinvoice.com",
-    thumbnail:
-      "https://aceternity.com/images/products/thumbnails/new/efreeinvoice.png",
-  },
-  {
-    title: "Love in Dante",
-    link: "https://efreeinvoice.com",
-    thumbnail:
-      "/images/dante.png",
-  },
+  // {
+  //   title: "Creme Digital",
+  //   link: "",
+  //   thumbnail: "",
+  // },
+  // {
+  //   title: "Golden Bells Academy",
+  //   link: "",
+  //   thumbnail: "",
+  // },
 ];

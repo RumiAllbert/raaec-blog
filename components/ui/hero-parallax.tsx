@@ -52,7 +52,7 @@ export const HeroParallax = ({
     springConfig
   );
   const translateY = useSpring(
-    useTransform(scrollYProgress, [0, 0.1], [-700, 500]),
+    useTransform(scrollYProgress, [0, 0.2], [-700, 500]),
     springConfig
   );
   // Define the starting and ending Y positions for the stacking animation
@@ -76,7 +76,7 @@ export const HeroParallax = ({
   return (
     <div
       ref={ref}
-      className="h-[200vh] py-40 overflow-hidden  antialiased relative flex flex-col self-auto [perspective:1000px] [transform-style:preserve-3d]"
+      className="h-[250vh] py-60 overflow-hidden  antialiased relative flex flex-col self-auto [perspective:1000px] [transform-style:preserve-3d]"
     >
       <Header />
       <motion.div
@@ -88,7 +88,7 @@ export const HeroParallax = ({
         }}
         className=""
       >
-        <motion.div className="flex flex-row-reverse space-x-reverse space-x-20 mb-20">
+        <motion.div className="flex flex-row-reverse space-x-reverse space-x-10 mb-10">
           {firstRow.map((product) => (
             <ProductCard
               product={product}
@@ -97,7 +97,7 @@ export const HeroParallax = ({
             />
           ))}
         </motion.div>
-        <motion.div className="flex flex-row  mb-20 space-x-20 ">
+        <motion.div className="flex flex-row  mb-10 space-x-10 ">
           {secondRow.map((product) => (
             <ProductCard
               product={product}
